@@ -40,7 +40,13 @@ export function Navbar() {
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-2 text-sm flex-1 justify-end">
           <Link href="/marktplatz" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Marktplatz
+            Onlineshop
+          </Link>
+          <Link href="/feinkostladen" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
+            Feinkostladen
+          </Link>
+          <Link href="/kochschule" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
+            Kochschule
           </Link>
 
           {user ? (
@@ -95,7 +101,9 @@ export function Navbar() {
       {open && (
         <div className="md:hidden bg-forest-900 px-4 pb-4 flex flex-col gap-1 text-sm">
           {[
-            { href: "/marktplatz",           label: "Marktplatz" },
+            { href: "/marktplatz",           label: "Onlineshop" },
+            { href: "/feinkostladen",         label: "Feinkostladen" },
+            { href: "/kochschule",            label: "Kochschule" },
             { href: "/inserat/neu",           label: "Produkt inserieren" },
             ...(user ? [
               { href: "/favoriten",             label: "Merkliste" },
