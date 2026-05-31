@@ -1,4 +1,5 @@
 import { MapPin } from "lucide-react";
+import Image from "next/image";
 
 const ERZEUGER = [
   {
@@ -76,14 +77,22 @@ const ERZEUGER = [
 export default function ErzeugerPage() {
   return (
     <div>
-      <div className="bg-stone-950 text-white py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+      <div className="relative h-[55vh] min-h-[380px] bg-stone-950">
+        <Image
+          src="/images/weinberg.jpg"
+          alt="Regionale Erzeuger"
+          fill
+          className="object-cover opacity-35"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 max-w-5xl mx-auto px-6 pb-16">
           <p className="text-xs tracking-widest uppercase text-stone-500 mb-6">
             Region Heidelberg · Odenwald · Pfalz · Schwarzwald
           </p>
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6">Unsere Erzeuger</h1>
-          <div className="w-10 h-px bg-forest-500 mb-8" />
-          <p className="text-stone-400 text-lg max-w-2xl leading-relaxed">
+          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-white mb-6">Unsere Erzeuger</h1>
+          <div className="w-10 h-px bg-forest-500 mb-6" />
+          <p className="text-stone-300 text-lg max-w-2xl leading-relaxed">
             Alle Partner sind persönlich bekannt und handverlesen. Kein Handel,
             keine anonymen Lieferketten. Jedes Produkt hat ein Gesicht und eine Geschichte.
           </p>
