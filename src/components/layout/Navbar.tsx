@@ -2,16 +2,25 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Leaf, Plus, User, Heart, ShoppingBag, MessageCircle, LogOut, LogIn } from "lucide-react";
+import { Menu, X, Plus, User, Heart, ShoppingBag, MessageCircle, LogOut, LogIn } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { NotificationBell } from "./NotificationBell";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
+
+const NAV_LINKS = [
+  { href: "/marktplatz",    label: "Onlineshop" },
+  { href: "/feinkostladen", label: "Feinkostladen" },
+  { href: "/weinbar",       label: "Weinbar" },
+  { href: "/kochschule",    label: "Kochschule" },
+  { href: "/erzeuger",      label: "Erzeuger" },
+];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const supabase = createClient();
@@ -30,113 +39,103 @@ export function Navbar() {
   }
 
   return (
-    <nav className="bg-forest-800 text-white sticky top-0 z-50 shadow-md">
-      <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg flex-shrink-0">
-          <Leaf size={22} className="text-forest-300" />
+    <nav className="bg-stone-950 text-white border-b border-stone-800 sticky top-0 z-50">
+      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between gap-6">
+
+        {/* Logo */}
+        <Link href="/" className="font-playfair text-lg font-bold tracking-tight text-white hover:text-stone-300 transition flex-shrink-0">
           Revierküche
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-2 text-sm flex-1 justify-end">
-          <Link href="/marktplatz" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Onlineshop
-          </Link>
-          <Link href="/feinkostladen" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Feinkostladen
-          </Link>
-          <Link href="/weinbar" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Weinbar
-          </Link>
-          <Link href="/kochschule" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Kochschule
-          </Link>
-          <Link href="/erzeuger" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
-            Erzeuger
-          </Link>
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-1 flex-1">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-xs tracking-widest uppercase px-3 py-2 transition ${
+                pathname === link.href
+                  ? "text-white"
+                  : "text-stone-500 hover:text-stone-200"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
 
+        {/* Desktop Actions */}
+        <div className="hidden lg:flex items-center gap-2">
           {user ? (
             <>
-              <Link href="/favoriten" className="hover:bg-forest-700 p-2 rounded-lg transition" title="Merkliste">
-                <Heart size={18} />
+              <Link href="/favoriten" className="text-stone-500 hover:text-white p-2 transition" title="Merkliste">
+                <Heart size={17} />
               </Link>
-              <Link href="/dashboard/messages" className="hover:bg-forest-700 p-2 rounded-lg transition" title="Nachrichten">
-                <MessageCircle size={18} />
+              <Link href="/dashboard/messages" className="text-stone-500 hover:text-white p-2 transition" title="Nachrichten">
+                <MessageCircle size={17} />
               </Link>
-              <Link href="/dashboard/orders" className="hover:bg-forest-700 p-2 rounded-lg transition" title="Bestellungen">
-                <ShoppingBag size={18} />
+              <Link href="/dashboard/orders" className="text-stone-500 hover:text-white p-2 transition" title="Bestellungen">
+                <ShoppingBag size={17} />
               </Link>
               <NotificationBell userId={user.id} />
-              <Link href="/dashboard/profile" className="hover:bg-forest-700 p-2 rounded-lg transition" title="Profil">
-                <User size={18} />
+              <Link href="/dashboard/profile" className="text-stone-500 hover:text-white p-2 transition" title="Profil">
+                <User size={17} />
               </Link>
-              <Link
-                href="/inserat/neu"
-                className="bg-forest-500 hover:bg-forest-400 px-4 py-1.5 rounded-lg flex items-center gap-1.5 transition font-medium"
-              >
-                <Plus size={16} /> Inserieren
+              <Link href="/inserat/neu"
+                className="ml-2 flex items-center gap-1.5 border border-forest-700 hover:border-forest-500 text-forest-400 hover:text-forest-300 text-xs tracking-widest uppercase px-4 py-2 transition">
+                <Plus size={14} /> Inserieren
               </Link>
-              <button onClick={handleLogout} className="hover:bg-forest-700 p-2 rounded-lg transition" title="Abmelden">
-                <LogOut size={18} />
+              <button onClick={handleLogout} className="text-stone-600 hover:text-stone-400 p-2 transition" title="Abmelden">
+                <LogOut size={17} />
               </button>
             </>
           ) : (
             <>
-              <Link href="/auth/login" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                <LogIn size={16} /> Anmelden
+              <Link href="/auth/login"
+                className="text-stone-500 hover:text-white text-xs tracking-widest uppercase px-3 py-2 transition flex items-center gap-1.5">
+                <LogIn size={14} /> Anmelden
               </Link>
-              <Link
-                href="/inserat/neu"
-                className="bg-forest-500 hover:bg-forest-400 px-4 py-1.5 rounded-lg flex items-center gap-1.5 transition font-medium"
-              >
-                <Plus size={16} /> Inserieren
+              <Link href="/inserat/neu"
+                className="flex items-center gap-1.5 border border-forest-700 hover:border-forest-500 text-forest-400 hover:text-forest-300 text-xs tracking-widest uppercase px-4 py-2 transition">
+                <Plus size={14} /> Inserieren
               </Link>
             </>
           )}
         </div>
 
         {/* Mobile */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-2">
           {user && <NotificationBell userId={user.id} />}
-          <button onClick={() => setOpen(!open)}>
+          <button onClick={() => setOpen(!open)} className="text-stone-400 hover:text-white transition">
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-forest-900 px-4 pb-4 flex flex-col gap-1 text-sm">
-          {[
-            { href: "/marktplatz",           label: "Onlineshop" },
-            { href: "/feinkostladen",         label: "Feinkostladen" },
-            { href: "/weinbar",               label: "Weinbar" },
-            { href: "/kochschule",            label: "Kochschule" },
-            { href: "/erzeuger",              label: "Erzeuger" },
-            { href: "/inserat/neu",           label: "Produkt inserieren" },
-            ...(user ? [
-              { href: "/favoriten",             label: "Merkliste" },
-              { href: "/dashboard/messages",    label: "Nachrichten" },
-              { href: "/dashboard/orders",      label: "Bestellungen" },
-              { href: "/dashboard/listings",    label: "Meine Inserate" },
-              { href: "/dashboard/profile",     label: "Profil" },
-            ] : [
-              { href: "/auth/login",            label: "Anmelden" },
-              { href: "/auth/register",         label: "Registrieren" },
-            ]),
-          ].map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="py-2.5 border-b border-forest-700 hover:text-forest-200"
-            >
-              {item.label}
+        <div className="lg:hidden bg-stone-900 border-t border-stone-800 px-6 py-4 flex flex-col gap-1">
+          {NAV_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
+              className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800 transition">
+              {link.label}
             </Link>
           ))}
-          {user && (
-            <button onClick={() => { setOpen(false); handleLogout(); }} className="py-2.5 text-left text-red-300">
-              Abmelden
-            </button>
+          {user ? (
+            <>
+              <Link href="/favoriten" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Merkliste</Link>
+              <Link href="/dashboard/messages" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Nachrichten</Link>
+              <Link href="/dashboard/orders" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Bestellungen</Link>
+              <Link href="/dashboard/listings" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Meine Inserate</Link>
+              <Link href="/dashboard/profile" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Profil</Link>
+              <Link href="/inserat/neu" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-forest-400 py-3 border-b border-stone-800">Inserieren</Link>
+              <button onClick={() => { setOpen(false); handleLogout(); }} className="text-xs tracking-widest uppercase text-stone-600 py-3 text-left">Abmelden</button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/login" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3 border-b border-stone-800">Anmelden</Link>
+              <Link href="/auth/register" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-stone-400 hover:text-white py-3">Registrieren</Link>
+            </>
           )}
         </div>
       )}

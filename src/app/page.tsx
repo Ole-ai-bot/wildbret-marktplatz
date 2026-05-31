@@ -1,77 +1,73 @@
 import Link from "next/link";
-import { ArrowRight, ShoppingBag, UtensilsCrossed, ChefHat, Wine, Leaf, MapPin, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const BEREICHE = [
   {
     href: "/marktplatz",
-    icon: <ShoppingBag size={40} className="text-forest-300" />,
     label: "Onlineshop",
-    description: "Frisches Wildbret & veredelete Feinkost — bundesweiter Kühlversand. Wildbox des Monats, Geschenkboxen und mehr.",
-    bg: "bg-forest-800",
-    hover: "hover:bg-forest-700",
-    cta: "Zum Shop",
-    badge: "Bundesweiter Versand",
+    sub: "Bundesweiter Versand",
+    description: "Handwerklich veredeltes Wildbret und Feinkost — direkt nach Hause. Wildbox des Monats, Geschenkboxen, Saisonprodukte.",
+    bg: "bg-forest-950",
+    border: "border-forest-800",
+    accent: "text-forest-400",
   },
   {
     href: "/feinkostladen",
-    icon: <UtensilsCrossed size={40} className="text-earth-300" />,
     label: "Feinkostladen",
-    description: "Wild, Ziegenkäse, Trüffel, Forellen, Sauerteigbrot und mehr — alles von handverlesenen regionalen Erzeugern.",
-    bg: "bg-earth-800",
-    hover: "hover:bg-earth-700",
-    cta: "Mehr erfahren",
-    badge: "Heidelberg-Rohrbach",
+    sub: "Heidelberg-Rohrbach",
+    description: "Wild, Trüffel, Ziegenkäse, Forellen, Sauerteigbrot — von handverlesenen Erzeugern aus der Region Heidelberg und Odenwald.",
+    bg: "bg-earth-950",
+    border: "border-earth-800",
+    accent: "text-earth-400",
   },
   {
     href: "/weinbar",
-    icon: <Wine size={40} className="text-purple-300" />,
     label: "Weinbar",
-    description: "Spontankauf, Verkostung & Revierabende. Wildaufschnitt, Ziegenkäse, kuratierte Weine und handgemachter Gin.",
-    bg: "bg-purple-900",
-    hover: "hover:bg-purple-800",
-    cta: "Entdecken",
-    badge: "Walk-in",
+    sub: "Walk-in · Verkostung",
+    description: "Wildaufschnitt, Ziegenkäse und kuratierte Weine. Revierabende, Erzeuger-Tastings und ein Gin aus dem Neckar-Odenwald-Kreis.",
+    bg: "bg-stone-950",
+    border: "border-stone-700",
+    accent: "text-stone-400",
   },
   {
     href: "/kochschule",
-    icon: <ChefHat size={40} className="text-amber-300" />,
     label: "Kochschule",
-    description: "Wild von der Zerlegung bis zum fertigen Gericht. Kochkurse, Events und Nose-to-Tail-Abende im Manufaktur-Ambiente.",
-    bg: "bg-stone-800",
-    hover: "hover:bg-stone-700",
-    cta: "Kurse entdecken",
-    badge: "Kurse & Events",
+    sub: "Kurse & Events",
+    description: "Von der Zerlegung bis zum fertigen Gericht. Nose-to-Tail, Wild trifft Trüffel, Rhein & Revier — im Manufaktur-Ambiente.",
+    bg: "bg-stone-900",
+    border: "border-stone-700",
+    accent: "text-amber-500",
   },
 ];
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
+
       {/* Hero */}
-      <section className="relative bg-forest-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "url('/hero-forest.jpg')", backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="relative max-w-4xl mx-auto px-4 py-24 text-center">
-          <span className="inline-block bg-forest-600 text-forest-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            Vom Revier auf den Tisch
-          </span>
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 tracking-tight">
-            Revierküche
+      <section className="bg-stone-950 text-white">
+        <div className="max-w-5xl mx-auto px-6 py-28 md:py-40">
+          <p className="text-stone-500 text-xs tracking-widest uppercase mb-8">
+            Vom Revier auf den Tisch — Heidelberg
+          </p>
+          <h1 className="font-playfair text-6xl md:text-8xl font-bold leading-none mb-6 text-white">
+            Revier&shy;küche
           </h1>
-          <p className="text-forest-200 text-lg md:text-xl max-w-2xl mx-auto mb-4">
+          <p className="text-stone-400 text-lg md:text-xl max-w-lg mb-4 leading-relaxed">
             Wildmanufaktur · Feinkostladen · Weinbar · Kochschule
           </p>
-          <p className="text-forest-300 text-base max-w-xl mx-auto mb-10">
+          <div className="w-12 h-px bg-forest-500 mb-8" />
+          <p className="text-stone-500 text-base max-w-md leading-relaxed mb-12">
             Handwerklich veredeltes Wildbret und erlesene regionale Produkte —
             transparent, nachhaltig und direkt von der Quelle.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/marktplatz"
-              className="bg-forest-500 hover:bg-forest-400 text-white font-semibold px-8 py-3 rounded-xl flex items-center gap-2 justify-center transition">
-              Zum Onlineshop <ArrowRight size={18} />
+              className="inline-flex items-center gap-2 bg-forest-700 hover:bg-forest-600 text-white text-sm font-medium px-6 py-3 transition">
+              Zum Onlineshop <ArrowRight size={16} />
             </Link>
             <Link href="/feinkostladen"
-              className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-3 rounded-xl transition">
+              className="inline-flex items-center gap-2 border border-stone-700 hover:border-stone-500 text-stone-300 hover:text-white text-sm font-medium px-6 py-3 transition">
               Uns besuchen
             </Link>
           </div>
@@ -79,71 +75,94 @@ export default function HomePage() {
       </section>
 
       {/* 4 Bereiche */}
-      <section className="grid md:grid-cols-2 lg:grid-cols-4">
-        {BEREICHE.map((b) => (
+      <section className="grid md:grid-cols-2 lg:grid-cols-4 border-t border-stone-800">
+        {BEREICHE.map((b, i) => (
           <Link key={b.href} href={b.href}
-            className={`${b.bg} ${b.hover} text-white p-8 flex flex-col gap-5 transition-colors group min-h-[280px]`}>
-            <div className="flex items-center justify-between">
-              {b.icon}
-              <span className="text-xs font-medium bg-white/10 px-3 py-1 rounded-full">{b.badge}</span>
+            className={`${b.bg} text-white p-8 md:p-10 flex flex-col gap-8 group min-h-[320px] border-b md:border-b-0 md:border-r ${b.border} last:border-r-0 hover:brightness-110 transition-all`}>
+            <div>
+              <p className={`text-xs tracking-widest uppercase mb-3 ${b.accent}`}>{b.sub}</p>
+              <h2 className="font-playfair text-2xl font-bold text-white leading-snug">{b.label}</h2>
             </div>
-            <div className="flex-1">
-              <h2 className="text-xl font-bold mb-2">{b.label}</h2>
-              <p className="text-white/65 text-sm leading-relaxed">{b.description}</p>
-            </div>
-            <span className="flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all">
-              {b.cta} <ArrowRight size={16} />
+            <p className="text-stone-400 text-sm leading-relaxed flex-1">{b.description}</p>
+            <span className={`flex items-center gap-2 text-xs tracking-widest uppercase ${b.accent} group-hover:gap-3 transition-all`}>
+              Entdecken <ArrowRight size={14} />
             </span>
           </Link>
         ))}
       </section>
 
-      {/* Unsere Philosophie */}
-      <section className="max-w-4xl mx-auto px-4 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Unsere Philosophie</h2>
-          <p className="text-stone-500 max-w-2xl mx-auto">
-            REVIERKÜCHE versteht sich als kuratorischer Feinkost-Knotenpunkt der Region
-            Heidelberg und Odenwald. Jedes Produkt steht für eine klare Haltung:
-            regional, handwerklich, nachhaltig.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { icon: <Leaf className="text-forest-500" size={28} />, title: "100% Regional & Wild", text: "Wildbret von lokalen Jägern aus dem 100 km-Umkreis — waidgerecht erlegt, kürzeste Transportwege, maximale Frische." },
-            { icon: <MapPin className="text-earth-500" size={28} />, title: "Handverlesene Erzeuger", text: "Alle Partner sind persönlich bekannt — von Odenwälder Trüffeln über Rheinfischer bis zu Ziegenkäse aus Nußloch." },
-            { icon: <Users className="text-amber-500" size={28} />, title: "Nose to Tail", text: "Wir verwerten das ganze Tier — von der Keule bis zur Wurst. Nichts wird verschwendet, alles wird veredelt." },
-          ].map((f) => (
-            <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100">
-              <div className="mb-4">{f.icon}</div>
-              <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{f.text}</p>
+      {/* Philosophie */}
+      <section className="bg-white border-b border-stone-100">
+        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-xs tracking-widest uppercase text-stone-400 mb-4">Unsere Haltung</p>
+              <h2 className="font-playfair text-4xl font-bold leading-tight mb-6">
+                Regional.<br />Handwerklich.<br />Transparent.
+              </h2>
+              <div className="w-8 h-px bg-forest-500 mb-6" />
+              <p className="text-stone-500 leading-relaxed mb-4">
+                REVIERKÜCHE versteht sich als kuratorischer Feinkost-Knotenpunkt der
+                Region Heidelberg und Odenwald. Jedes Produkt steht für eine klare
+                Haltung: persönlich bekannt, handwerklich erzeugt, keine anonymen Lieferketten.
+              </p>
+              <p className="text-stone-500 leading-relaxed">
+                Wild von lokalen Jägern aus dem 100-km-Umkreis — waidgerecht erlegt,
+                kürzeste Transportwege, maximale Frische. Ergänzt durch ein Netzwerk aus
+                zehn handverlesenen Erzeugern.
+              </p>
             </div>
-          ))}
+            <div className="grid grid-cols-2 gap-px bg-stone-100">
+              {[
+                { zahl: "100 km", label: "Einzugsgebiet Wildnetz" },
+                { zahl: "10+", label: "Regionale Erzeuger" },
+                { zahl: "0", label: "Anonyme Lieferketten" },
+                { zahl: "100%", label: "Nose to Tail" },
+              ].map((s) => (
+                <div key={s.label} className="bg-white p-8">
+                  <p className="font-playfair text-3xl font-bold text-forest-800 mb-1">{s.zahl}</p>
+                  <p className="text-stone-400 text-xs tracking-wide uppercase">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Erzeuger Teaser */}
-      <section className="bg-stone-50 border-t border-stone-100 py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-3">Unsere Erzeuger-Partner</h2>
-          <p className="text-stone-500 mb-8 max-w-xl mx-auto">
-            Ziegenkäse, Forellen, Trüffel, Sauerteigbrot, Gin, Kaffee — alles aus der Region,
-            alles handwerklich, alles mit Geschichte.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {["Nußlocher Ziegenkäsehof", "Forellenhof Lenz", "Odenwälder Trüffel", "Rheinfischer", "Südseide Bakery", "Inge & der Honigbär", "Privatrösterei Bonafede", "THEO Essigmanufaktur"].map((name) => (
-              <span key={name} className="bg-white border border-stone-200 text-stone-600 text-sm px-4 py-2 rounded-full shadow-sm">
-                {name}
-              </span>
+      {/* Erzeuger */}
+      <section className="bg-stone-950 text-white py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <p className="text-xs tracking-widest uppercase text-stone-500 mb-4">Handverlesen</p>
+              <h2 className="font-playfair text-4xl font-bold">Unsere Erzeuger</h2>
+            </div>
+            <Link href="/erzeuger"
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-stone-400 hover:text-white transition">
+              Alle kennenlernen <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-stone-800">
+            {[
+              { name: "Nußlocher Ziegenkäsehof", ort: "Nußloch" },
+              { name: "Forellenhof Lenz", ort: "Odenwald" },
+              { name: "Odenwälder Trüffel", ort: "Adelsheim" },
+              { name: "Rheinfischer Kuhn", ort: "Karlsruhe" },
+              { name: "Südseite Bakery", ort: "Heidelberg" },
+              { name: "Privatrösterei Bonafede", ort: "Hockenheim" },
+              { name: "THEO Essigmanufaktur", ort: "Schwarzwald" },
+              { name: "Inge & der Honigbär", ort: "Mosbach" },
+            ].map((e) => (
+              <Link key={e.name} href="/erzeuger"
+                className="bg-stone-900 hover:bg-stone-800 transition p-6 group">
+                <p className="text-white text-sm font-medium leading-snug mb-1 group-hover:text-forest-300 transition">{e.name}</p>
+                <p className="text-stone-500 text-xs">{e.ort}</p>
+              </Link>
             ))}
           </div>
-          <Link href="/erzeuger"
-            className="inline-flex items-center gap-2 text-forest-700 font-medium hover:text-forest-500 transition">
-            Alle Erzeuger kennenlernen <ArrowRight size={16} />
-          </Link>
         </div>
       </section>
+
     </div>
   );
 }

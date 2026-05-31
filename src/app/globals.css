@@ -4,11 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --font-playfair: 'Playfair Display', serif;
+    --font-inter: 'Inter', sans-serif;
   }
 
   body {
     @apply bg-stone-50 text-stone-900 antialiased;
+    font-family: var(--font-inter);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-playfair);
+  }
+}
+
+@layer utilities {
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+  .font-sans {
+    font-family: var(--font-inter);
   }
 }
