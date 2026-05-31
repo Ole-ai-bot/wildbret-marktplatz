@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const BEREICHE = [
@@ -40,6 +41,33 @@ const BEREICHE = [
   },
 ];
 
+const PRODUKTE = [
+  {
+    bild: "/images/hirsch.jpg",
+    label: "Hirsch",
+    beschreibung: "Hirschfilet auf Rahmwirsing, getrüffeltem Kaiserschmarrn und Wildjus",
+    href: "/marktplatz",
+  },
+  {
+    bild: "/images/wildschwein.jpg",
+    label: "Wildschwein",
+    beschreibung: "Zweierlei vom Wildschwein mit Topfenknödeln und Rosenkohl an Trüffeljus",
+    href: "/marktplatz",
+  },
+  {
+    bild: "/images/forelle.jpg",
+    label: "Forelle",
+    beschreibung: "Forelle vom Forellenhof Lenz — aus natürlichem Quellwasser des Odenwalds",
+    href: "/feinkostladen",
+  },
+  {
+    bild: "/images/trüffel.jpg",
+    label: "Odenwälder Trüffel",
+    beschreibung: "Handgepflückte Trüffel aus dem Neckar-Odenwald-Kreis — saisonal",
+    href: "/erzeuger",
+  },
+];
+
 export default function HomePage() {
   return (
     <div className="flex flex-col">
@@ -78,7 +106,7 @@ export default function HomePage() {
       <section className="grid md:grid-cols-2 lg:grid-cols-4 border-t border-stone-800">
         {BEREICHE.map((b, i) => (
           <Link key={b.href} href={b.href}
-            className={`${b.bg} text-white p-8 md:p-10 flex flex-col gap-8 group min-h-[320px] border-b md:border-b-0 md:border-r ${b.border} last:border-r-0 hover:brightness-110 transition-all`}>
+            className={`${b.bg} text-white p-8 md:p-10 flex flex-col gap-8 group min-h-[300px] border-b md:border-b-0 md:border-r ${b.border} last:border-r-0 hover:brightness-110 transition-all`}>
             <div>
               <p className={`text-xs tracking-widest uppercase mb-3 ${b.accent}`}>{b.sub}</p>
               <h2 className="font-playfair text-2xl font-bold text-white leading-snug">{b.label}</h2>
@@ -89,6 +117,40 @@ export default function HomePage() {
             </span>
           </Link>
         ))}
+      </section>
+
+      {/* Produkte mit echten Fotos */}
+      <section className="bg-white border-b border-stone-100">
+        <div className="max-w-5xl mx-auto px-6 py-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div>
+              <p className="text-xs tracking-widest uppercase text-stone-400 mb-3">Aus der Manufaktur</p>
+              <h2 className="font-playfair text-4xl font-bold">Unsere Produkte</h2>
+            </div>
+            <Link href="/marktplatz"
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-stone-400 hover:text-stone-800 transition">
+              Alle Produkte <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-stone-100">
+            {PRODUKTE.map((p) => (
+              <Link key={p.label} href={p.href} className="group bg-white overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={p.bild}
+                    alt={p.label}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs tracking-widest uppercase text-stone-400 mb-1">{p.label}</p>
+                  <p className="text-stone-600 text-sm leading-snug">{p.beschreibung}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Philosophie */}
@@ -108,8 +170,7 @@ export default function HomePage() {
               </p>
               <p className="text-stone-500 leading-relaxed">
                 Wild von lokalen Jägern aus dem 100-km-Umkreis — waidgerecht erlegt,
-                kürzeste Transportwege, maximale Frische. Ergänzt durch ein Netzwerk aus
-                zehn handverlesenen Erzeugern.
+                kürzeste Transportwege, maximale Frische.
               </p>
             </div>
             <div className="grid grid-cols-2 gap-px bg-stone-100">
@@ -129,8 +190,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Wild Boar Burger Feature */}
+      <section className="bg-stone-950 text-white overflow-hidden">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2">
+          <div className="relative h-80 md:h-auto">
+            <Image
+              src="/images/wildboar-burger.jpg"
+              alt="Pulled Wild Boar Burger"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="p-10 md:p-16 flex flex-col justify-center">
+            <p className="text-xs tracking-widest uppercase text-forest-400 mb-4">Aus der Kochschule</p>
+            <h2 className="font-playfair text-3xl font-bold mb-4">
+              Wild neu denken
+            </h2>
+            <div className="w-8 h-px bg-forest-600 mb-6" />
+            <p className="text-stone-400 text-sm leading-relaxed mb-8">
+              Pulled Wild Boar Burger, Hirschfilet auf Trüffelkaiserschmarrn,
+              Rheinzander mit Belugalinsen — in unserer Kochschule zeigen wir,
+              wie vielseitig Wildbret sein kann.
+            </p>
+            <Link href="/kochschule"
+              className="inline-flex items-center gap-2 border border-forest-700 hover:border-forest-400 text-forest-400 hover:text-white text-xs tracking-widest uppercase px-6 py-3 transition w-fit">
+              Kochkurse entdecken <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Erzeuger */}
-      <section className="bg-stone-950 text-white py-20 px-6">
+      <section className="bg-stone-950 text-white py-20 px-6 border-t border-stone-900">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
