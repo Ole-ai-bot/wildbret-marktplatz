@@ -90,6 +90,48 @@ export default function FeinkostladenPage() {
           </div>
         </div>
 
+        {/* Champagner */}
+        <div className="grid md:grid-cols-2 gap-px bg-stone-100 mb-16">
+          <div className="bg-stone-950 text-white p-10">
+            <p className="text-xs tracking-widest uppercase text-stone-500 mb-4">Exklusiv</p>
+            <h2 className="font-playfair text-3xl font-bold mb-4">Champagner</h2>
+            <div className="w-8 h-px bg-stone-600 mb-6" />
+            <p className="text-stone-400 text-sm leading-relaxed mb-6">
+              Eine handverlesene Auswahl der besten Champagner aus den renommiertesten
+              Häusern der Champagne — kuratiert nach denselben Maßstäben wie das
+              gesamte Revierküche-Sortiment: Qualität, Authentizität und Charakter.
+            </p>
+            <p className="text-stone-500 text-xs leading-relaxed mb-8">
+              Verfügbar im Feinkostladen sowie über unseren Champagner-Spezialisten.
+              Ideal als Begleitung zur Wildküche oder als exklusives Geschenk.
+            </p>
+            <a
+              href="https://champagneimports.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-stone-600 hover:border-white text-stone-300 hover:text-white text-xs tracking-widest uppercase px-6 py-3 transition"
+            >
+              Zur Champagner-Auswahl <ArrowRight size={14} />
+            </a>
+          </div>
+          <div className="bg-stone-900 p-10 flex flex-col justify-between">
+            <div>
+              <p className="text-xs tracking-widest uppercase text-stone-500 mb-6">Im Sortiment</p>
+              <ul className="space-y-4">
+                {["Blanc de Blancs — Eleganz & Terroir", "Rosé Cuvées — Finesse & Tiefe", "Prestige Cuvées renommierter Häuser", "Vintage-Jahrgänge auf Anfrage", "Geschenkboxen & Magnumflaschen"].map((item) => (
+                  <li key={item} className="text-stone-400 text-sm flex items-start gap-3">
+                    <span className="w-px h-4 bg-stone-600 flex-shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="text-stone-600 text-xs mt-8 tracking-wide">
+              champagneimports.com
+            </p>
+          </div>
+        </div>
+
         {/* Erzeuger Banner */}
         <div className="bg-stone-950 text-white p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
