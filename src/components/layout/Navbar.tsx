@@ -45,8 +45,14 @@ export function Navbar() {
           <Link href="/feinkostladen" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
             Feinkostladen
           </Link>
+          <Link href="/weinbar" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
+            Weinbar
+          </Link>
           <Link href="/kochschule" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
             Kochschule
+          </Link>
+          <Link href="/erzeuger" className="hover:bg-forest-700 px-3 py-1.5 rounded-lg transition">
+            Erzeuger
           </Link>
 
           {user ? (
@@ -103,7 +109,9 @@ export function Navbar() {
           {[
             { href: "/marktplatz",           label: "Onlineshop" },
             { href: "/feinkostladen",         label: "Feinkostladen" },
+            { href: "/weinbar",               label: "Weinbar" },
             { href: "/kochschule",            label: "Kochschule" },
+            { href: "/erzeuger",              label: "Erzeuger" },
             { href: "/inserat/neu",           label: "Produkt inserieren" },
             ...(user ? [
               { href: "/favoriten",             label: "Merkliste" },
