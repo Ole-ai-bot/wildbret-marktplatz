@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
   const supabase = adminClient();
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.CheckoutSession;
+    const session = event.data.object as Stripe.Checkout.Session;
     const { listing_id, buyer_id, seller_id } = session.metadata ?? {};
 
     // Order auf paid setzen
