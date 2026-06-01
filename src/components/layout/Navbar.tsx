@@ -9,7 +9,8 @@ import { NotificationBell } from "./NotificationBell";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const NAV_LINKS = [
-  { href: "/marktplatz",    label: "Onlineshop" },
+  { href: "/shop",          label: "Onlineshop" },
+  { href: "/marktplatz",    label: "Wildbret-Marktplatz" },
   { href: "/feinkostladen", label: "Feinkostladen" },
   { href: "/weinbar",       label: "Weinbar" },
   { href: "/kochschule",    label: "Kochschule" },

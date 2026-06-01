@@ -4,10 +4,10 @@ import { ArrowRight } from "lucide-react";
 
 const BEREICHE = [
   {
-    href: "/marktplatz",
+    href: "/shop",
     label: "Onlineshop",
     sub: "Bundesweiter Versand",
-    description: "Handwerklich veredeltes Wildbret und Feinkost — direkt nach Hause. Wildbox des Monats, Geschenkboxen, Saisonprodukte.",
+    description: "Wildrillette, Wildjus, Öle, Essige, Ziegenkäse — handwerkliche Feinkost von unseren Erzeugern, direkt nach Hause.",
     bg: "bg-forest-950",
     border: "border-forest-800",
     accent: "text-forest-400",
@@ -90,7 +90,7 @@ export default function HomePage() {
             transparent, nachhaltig und direkt von der Quelle.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/marktplatz"
+            <Link href="/shop"
               className="inline-flex items-center gap-2 bg-forest-700 hover:bg-forest-600 text-white text-sm font-medium px-6 py-3 transition">
               Zum Onlineshop <ArrowRight size={16} />
             </Link>
@@ -127,7 +127,7 @@ export default function HomePage() {
               <p className="text-xs tracking-widest uppercase text-stone-400 mb-3">Aus der Manufaktur</p>
               <h2 className="font-playfair text-4xl font-bold">Unsere Produkte</h2>
             </div>
-            <Link href="/marktplatz"
+            <Link href="/shop"
               className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-stone-400 hover:text-stone-800 transition">
               Alle Produkte <ArrowRight size={14} />
             </Link>
