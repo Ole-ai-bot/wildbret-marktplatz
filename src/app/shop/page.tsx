@@ -4,13 +4,20 @@ import { ArrowRight } from "lucide-react";
 
 const KATEGORIEN = [
   { id: "wildmanufaktur", label: "Wildmanufaktur" },
+  { id: "wildwurst", label: "Wildwurst & Schinken" },
+  { id: "pesto-confit", label: "Pesto, Confit & Kompott" },
+  { id: "eingemachtes", label: "Eingemachtes & Gelee" },
   { id: "oele", label: "Öle" },
   { id: "essig", label: "Essig & Balsamico" },
   { id: "kaese", label: "Käse" },
+  { id: "butter", label: "Butter" },
+  { id: "kaffee", label: "Kaffee" },
+  { id: "gebaeck", label: "Gebäck" },
+  { id: "gewuerze", label: "Gewürze & Snacks" },
 ];
 
 const PRODUKTE = [
-  // Wildmanufaktur
+  // ── Wildmanufaktur ──
   {
     slug: "wildrillette",
     name: "Wildrillette",
@@ -29,8 +36,158 @@ const PRODUKTE = [
     gewicht: "350ml",
     bild: "/images/wildschwein.jpg",
   },
+  {
+    slug: "wildpreiselbeeren",
+    name: "Wildpreiselbeeren",
+    kategorie: "wildmanufaktur",
+    kurz: "Handverlesen, sanft eingekocht — der klassische Begleiter zu Wild, Käse und Vesper.",
+    preis: 7.90,
+    gewicht: "220g",
+  },
+  {
+    slug: "wildschwein-ragout-tk",
+    name: "Wildschwein-Ragout",
+    kategorie: "wildmanufaktur",
+    kurz: "Geschmortes Wildschwein-Ragout, küchenfertig tiefgekühlt. Einfach erwärmen — schmeckt wie frisch gemacht.",
+    preis: 14.90,
+    gewicht: "400g · TK",
+  },
 
-  // Öle — Wasgau Ölmühle
+  // ── Wildwurst & Schinken ──
+  {
+    slug: "rehschinken-roh",
+    name: "Rehschinken roh",
+    kategorie: "wildwurst",
+    kurz: "Luftgetrockneter Rehschinken — zart, mager, intensiv im Geschmack. Handwerklich gereift.",
+    preis: 18.90,
+    gewicht: "ca. 150g",
+  },
+  {
+    slug: "wildschweinschinken-roh",
+    name: "Wildschweinschinken roh",
+    kategorie: "wildwurst",
+    kurz: "Roh gereifter Wildschweinschinken mit feiner Fettmarmorierung. Kräftig, aromatisch, perfekt zur Vesper.",
+    preis: 16.90,
+    gewicht: "ca. 150g",
+  },
+  {
+    slug: "wildschweinschinken-gekocht",
+    name: "Wildschweinschinken gekocht",
+    kategorie: "wildwurst",
+    kurz: "Sanft gegarter Wildschweinschinken — mild, saftig, vielseitig. Zum Aufschnitt oder auf Brot.",
+    preis: 14.90,
+    gewicht: "ca. 150g",
+  },
+  {
+    slug: "wildschwein-salami",
+    name: "Wildschwein-Salami",
+    kategorie: "wildwurst",
+    kurz: "Würzige Salami vom Wildschwein — handwerklich gereift, mit leichter Schärfe. Zum Schneiden.",
+    preis: 12.90,
+    gewicht: "ca. 180g",
+  },
+  {
+    slug: "wildschwein-salami-pikant",
+    name: "Wildschwein-Salami pikant",
+    kategorie: "wildwurst",
+    kurz: "Die scharfe Variante — Wildschwein-Salami mit Chili und Pfeffer. Für alle, die es kräftig mögen.",
+    preis: 13.50,
+    gewicht: "ca. 180g",
+  },
+
+  // ── Pesto, Confit & Kompott ──
+  {
+    slug: "tomatenpesto",
+    name: "Tomatenpesto",
+    kategorie: "pesto-confit",
+    kurz: "Sonnengereifte Tomaten, Olivenöl, Parmesan — klassisch italienisch, handgemacht in unserer Manufaktur.",
+    preis: 7.50,
+    gewicht: "180g",
+  },
+  {
+    slug: "basilikumpesto",
+    name: "Basilikumpesto",
+    kategorie: "pesto-confit",
+    kurz: "Frischer Basilikum, Pinienkerne, Parmesan — intensiv grün und aromatisch. Zu Pasta oder als Dip.",
+    preis: 7.50,
+    gewicht: "180g",
+  },
+  {
+    slug: "baerlauchpesto",
+    name: "Bärlauchpesto",
+    kategorie: "pesto-confit",
+    kurz: "Frühlingshaft, würzig, knoblauchig ohne Knoblauch. Saisonal hergestellt aus frischem Bärlauch.",
+    preis: 8.50,
+    gewicht: "180g",
+  },
+  {
+    slug: "feigenconfit",
+    name: "Feigenconfit",
+    kategorie: "pesto-confit",
+    kurz: "Süß-würzig eingekochte Feigen — der perfekte Begleiter zu Ziegenkäse, Wildleber oder reifem Hartkäse.",
+    preis: 8.90,
+    gewicht: "160g",
+  },
+  {
+    slug: "rhabarberkompott",
+    name: "Rhabarberkompott",
+    kategorie: "pesto-confit",
+    kurz: "Fruchtig-säuerlich, sanft eingekocht. Zu Desserts, auf Brot oder als Begleitung zu Wildgerichten.",
+    preis: 6.90,
+    gewicht: "220g",
+  },
+
+  // ── Eingemachtes & Gelee ──
+  {
+    slug: "quittengelee",
+    name: "Quittengelee",
+    kategorie: "eingemachtes",
+    kurz: "Goldenes Quittengelee — rein, fruchtig, aus regionalen Quitten. Perfekt auf Brot oder zu Käse.",
+    preis: 6.50,
+    gewicht: "200g",
+  },
+  {
+    slug: "quittenlikoer",
+    name: "Quittenlikör",
+    kategorie: "eingemachtes",
+    kurz: "Aromatischer Quittenlikör — samtig, warm, mit feiner Fruchtsüße. Als Digestif oder zum Verschenken.",
+    preis: 16.90,
+    gewicht: "350ml",
+  },
+  {
+    slug: "quitten-apfel-tonkabohne",
+    name: "Quitten eingelegt mit Apfel & Tonkabohne",
+    kategorie: "eingemachtes",
+    kurz: "Ein außergewöhnliches Eingemachtes — Quitte trifft Apfel und den warmen Duft der Tonkabohne.",
+    preis: 9.50,
+    gewicht: "220g",
+  },
+  {
+    slug: "quitten-suess-sauer-salbei",
+    name: "Quitten süß-sauer mit Salbei",
+    kategorie: "eingemachtes",
+    kurz: "Süß-saure Quitten mit frischem Salbei — eine raffinierte Beilage zu Wild, Gans und kräftigem Käse.",
+    preis: 9.50,
+    gewicht: "220g",
+  },
+  {
+    slug: "traubengelee",
+    name: "Traubengelee",
+    kategorie: "eingemachtes",
+    kurz: "Aus regionalen Trauben eingekocht — fruchtig, mild, vielseitig. Zum Frühstück oder zur Käseplatte.",
+    preis: 6.50,
+    gewicht: "200g",
+  },
+  {
+    slug: "holunderblueten-sirup",
+    name: "Holunderblüten-Sirup",
+    kategorie: "eingemachtes",
+    kurz: "Der Duft des Frühsommers im Glas. Aus frischen Holunderblüten — zu Wasser, Sekt oder Desserts.",
+    preis: 8.90,
+    gewicht: "350ml",
+  },
+
+  // ── Öle ──
   {
     slug: "walnussoel-pfalz",
     name: "Walnussöl aus der Pfalz",
@@ -67,8 +224,25 @@ const PRODUKTE = [
     gewicht: "250ml",
     erzeuger: "Wasgau Ölmühle",
   },
+  {
+    slug: "baerlauchoel",
+    name: "Bärlauchöl",
+    kategorie: "oele",
+    kurz: "Frischer Bärlauch in hochwertigem Öl — zum Verfeinern von Pasta, Risotto, Fleisch und Fisch.",
+    preis: 10.90,
+    gewicht: "250ml",
+  },
+  {
+    slug: "olivenoel-antonella",
+    name: "Olivenöl von Antonella",
+    kategorie: "oele",
+    kurz: "Extra vergine aus Italien — fruchtig, pfeffrig, ehrlich. Persönlich ausgewählt, direkt von der Erzeugerin.",
+    preis: 16.90,
+    gewicht: "500ml",
+    erzeuger: "Antonella",
+  },
 
-  // Essig — THEO Essigmanufaktur
+  // ── Essig & Balsamico ──
   {
     slug: "weinessig",
     name: "Weinessig",
@@ -106,7 +280,7 @@ const PRODUKTE = [
     erzeuger: "THEO Essigmanufaktur",
   },
 
-  // Käse — Nußlocher Ziegenkäsehof
+  // ── Käse ──
   {
     slug: "ziegenbrie",
     name: "Ziegenbrie",
@@ -135,6 +309,110 @@ const PRODUKTE = [
     gewicht: "ca. 120g",
     erzeuger: "Nußlocher Ziegenkäsehof",
   },
+  {
+    slug: "rubycube-till",
+    name: "Ruby Cube",
+    kategorie: "kaese",
+    kurz: "Würfelförmiger Weichkäse mit Rotschmiere-Rinde — cremig, kräftig, einzigartig. Handgemacht von Till.",
+    preis: 8.90,
+    gewicht: "ca. 200g",
+    erzeuger: "Till",
+  },
+
+  // ── Butter ──
+  {
+    slug: "salzbutter",
+    name: "Salzbutter",
+    kategorie: "butter",
+    kurz: "Klassische Salzbutter, handwerklich geknetet — cremig, rein, mit feinem Meersalz.",
+    preis: 5.90,
+    gewicht: "200g",
+    erzeuger: "Butterbrudis",
+  },
+  {
+    slug: "misobutter",
+    name: "Misobutter",
+    kategorie: "butter",
+    kurz: "Umami trifft Butter — fermentierte Misopaste verschmilzt mit cremiger Butter zu einem außergewöhnlichen Aufstrich.",
+    preis: 7.50,
+    gewicht: "200g",
+    erzeuger: "Butterbrudis",
+  },
+  {
+    slug: "baerlauchbutter",
+    name: "Bärlauchbutter",
+    kategorie: "butter",
+    kurz: "Frühling im Glas — frischer Bärlauch in handgekneter Butter. Zum Schmelzen auf Steak, Fisch oder Brot.",
+    preis: 6.90,
+    gewicht: "200g",
+    erzeuger: "Butterbrudis",
+  },
+  {
+    slug: "karamellbutter",
+    name: "Karamellbutter",
+    kategorie: "butter",
+    kurz: "Süß, nussig, karamellisiert — Beurre noisette als Aufstrich. Auf warmem Brot ein Gedicht.",
+    preis: 7.50,
+    gewicht: "200g",
+    erzeuger: "Butterbrudis",
+  },
+  {
+    slug: "algenbutter",
+    name: "Algenbutter",
+    kategorie: "butter",
+    kurz: "Meer trifft Land — feine Meeresalgen geben dieser Butter einen mineralisch-salzigen Charakter. Zu Fisch und Meeresfrüchten.",
+    preis: 7.90,
+    gewicht: "200g",
+    erzeuger: "Butterbrudis",
+  },
+
+  // ── Kaffee ──
+  {
+    slug: "bonafede-espresso",
+    name: "Espresso",
+    kategorie: "kaffee",
+    kurz: "Slow Roasting bei max. 210°C — vollmundig, schokoladig, mit langem Abgang. Demeter-zertifiziert.",
+    preis: 12.90,
+    gewicht: "250g Bohne",
+    erzeuger: "Privatrösterei Bonafede",
+  },
+  {
+    slug: "bonafede-filterkaffee",
+    name: "Filterkaffee",
+    kategorie: "kaffee",
+    kurz: "Fruchtig-mild, ideal für Handfilter oder Frenchpress. Röster des Jahres 2016, Bio-zertifiziert.",
+    preis: 11.90,
+    gewicht: "250g Bohne",
+    erzeuger: "Privatrösterei Bonafede",
+  },
+
+  // ── Gebäck ──
+  {
+    slug: "berberitzen-cantuccini",
+    name: "Berberitzen-Cantuccini",
+    kategorie: "gebaeck",
+    kurz: "Knusprig, mandelreich, mit säuerlich-fruchtigen Berberitzen. Zum Kaffee, Wein oder einfach so.",
+    preis: 8.50,
+    gewicht: "200g",
+  },
+
+  // ── Gewürze & Snacks ──
+  {
+    slug: "gewuerzsalz",
+    name: "Gewürzsalz",
+    kategorie: "gewuerze",
+    kurz: "Hausmischung aus der Manufaktur — Meersalz mit ausgewählten Kräutern und Gewürzen. Zu Wild, Fisch und Gemüse.",
+    preis: 6.90,
+    gewicht: "150g",
+  },
+  {
+    slug: "chipsmischung",
+    name: "Chipsmischung",
+    kategorie: "gewuerze",
+    kurz: "Handgemachte Gemüsechips aus der Region — Rote Bete, Pastinake, Süßkartoffel. Der perfekte Snack zur Vesper.",
+    preis: 5.90,
+    gewicht: "100g",
+  },
 ];
 
 export default function ShopPage() {
@@ -156,15 +434,15 @@ export default function ShopPage() {
       <div className="max-w-5xl mx-auto px-6 py-16">
 
         {/* Kategorien als Anker */}
-        <div className="flex flex-wrap gap-3 mb-16">
+        <div className="flex flex-wrap gap-2 mb-16">
           {KATEGORIEN.map((k) => (
             <a key={k.id} href={`#${k.id}`}
-              className="border border-stone-200 hover:border-stone-400 text-stone-600 hover:text-stone-900 text-xs tracking-widest uppercase px-5 py-2.5 transition">
+              className="border border-stone-200 hover:border-stone-400 text-stone-600 hover:text-stone-900 text-xs tracking-widest uppercase px-4 py-2 transition">
               {k.label}
             </a>
           ))}
           <Link href="/marktplatz"
-            className="border border-forest-200 text-forest-600 hover:border-forest-400 hover:text-forest-800 text-xs tracking-widest uppercase px-5 py-2.5 transition">
+            className="border border-forest-200 text-forest-600 hover:border-forest-400 hover:text-forest-800 text-xs tracking-widest uppercase px-4 py-2 transition ml-auto">
             Wildbret-Marktplatz
           </Link>
         </div>
@@ -172,6 +450,8 @@ export default function ShopPage() {
         {/* Produkte nach Kategorie */}
         {KATEGORIEN.map((kat) => {
           const items = PRODUKTE.filter((p) => p.kategorie === kat.id);
+          if (!items.length) return null;
+          const erzeuger = items.find((p) => p.erzeuger)?.erzeuger;
           return (
             <div key={kat.id} id={kat.id} className="mb-20">
               <div className="flex items-end justify-between mb-8 border-b border-stone-200 pb-4">
@@ -181,8 +461,8 @@ export default function ShopPage() {
                   </p>
                   <h2 className="font-playfair text-3xl font-bold">{kat.label}</h2>
                 </div>
-                {items[0]?.erzeuger && (
-                  <p className="text-xs text-stone-400 hidden md:block">{items[0].erzeuger}</p>
+                {erzeuger && (
+                  <p className="text-xs text-stone-400 hidden md:block">{erzeuger}</p>
                 )}
               </div>
 
