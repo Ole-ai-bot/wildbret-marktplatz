@@ -3,8 +3,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const KATEGORIEN = [
+  { id: "abos", label: "Abos & Boxen" },
+  { id: "geschenke", label: "Geschenkboxen" },
   { id: "wildmanufaktur", label: "Wildmanufaktur" },
   { id: "wildwurst", label: "Wildwurst & Schinken" },
+  { id: "hund", label: "Wild für den Hund" },
   { id: "pesto-confit", label: "Pesto, Confit & Kompott" },
   { id: "eingemachtes", label: "Eingemachtes & Gelee" },
   { id: "oele", label: "Öle" },
@@ -17,6 +20,68 @@ const KATEGORIEN = [
 ];
 
 const PRODUKTE = [
+  // ── Abos & Boxen ──
+  {
+    slug: "wildbox-des-monats",
+    name: "Wildbox des Monats",
+    kategorie: "abos",
+    kurz: "Monatliches Abo mit wechselnden Wildprodukten der Saison — veredeltes Wildbret, Beilagen und Rezeptkarte. Jeden Monat eine neue Überraschung.",
+    preis: 49.90,
+    gewicht: "Abo / Monat",
+    tag: "Abo",
+  },
+  {
+    slug: "barf-monatsabo",
+    name: "BARF-Monatsabo",
+    kategorie: "abos",
+    kurz: "Monatliche Wild-BARF-Box — Fleisch, Organe und Knochen, saisonal zusammengestellt nach Gewicht deines Hundes.",
+    preis: 49.00,
+    gewicht: "5 kg / Monat",
+    tag: "Abo",
+  },
+
+  // ── Geschenkboxen ──
+  {
+    slug: "geschenkbox-feinkost",
+    name: "Feinkost-Geschenkbox",
+    kategorie: "geschenke",
+    kurz: "Das Beste der Revierküche in einer Box — Wildrillette, Ziegenkäse, Trüffelöl und Forelle vom Forellenhof Lenz. Perfekt zum Verschenken.",
+    preis: 59.90,
+    gewicht: "Geschenkbox",
+  },
+  {
+    slug: "geschenkbox-vesper",
+    name: "Vesperbox Wild & Käse",
+    kategorie: "geschenke",
+    kurz: "Wildaufschnitt, Ziegenkäse, Feigenconfit und Berberitzen-Cantuccini — eine komplette Vesper für zwei Personen.",
+    preis: 39.90,
+    gewicht: "Geschenkbox",
+  },
+  {
+    slug: "geschenkbox-oel-essig",
+    name: "Öl & Essig Box",
+    kategorie: "geschenke",
+    kurz: "Walnussöl aus der Pfalz, Balsamico von THEO und Olivenöl von Antonella — drei Klassiker in einer eleganten Box.",
+    preis: 44.90,
+    gewicht: "Geschenkbox",
+  },
+  {
+    slug: "geschenkbox-wild-champagner",
+    name: "Wild & Champagner",
+    kategorie: "geschenke",
+    kurz: "Wildrillette, Wildpreiselbeeren und eine Flasche Champagne LUTUN Brut — das besondere Geschenk für besondere Menschen.",
+    preis: 79.90,
+    gewicht: "Geschenkbox",
+  },
+  {
+    slug: "gutschein-kochkurs",
+    name: "Gutschein Kochkurs",
+    kategorie: "geschenke",
+    kurz: "Ein Kochkurs in der Revierküche — Wild zerlegen, zubereiten, genießen. Wert frei wählbar, einlösbar für alle Kurse.",
+    preis: 89.00,
+    gewicht: "Gutschein",
+  },
+
   // ── Wildmanufaktur ──
   {
     slug: "wildrillette",
@@ -93,6 +158,80 @@ const PRODUKTE = [
     kurz: "Die scharfe Variante — Wildschwein-Salami mit Chili und Pfeffer. Für alle, die es kräftig mögen.",
     preis: 13.50,
     gewicht: "ca. 180g",
+  },
+
+  // ── Wild für den Hund ──
+  {
+    slug: "barf-reh",
+    name: "BARF-Paket Reh",
+    kategorie: "hund",
+    kurz: "Rohes Rehfleisch, portioniert und vakuumiert — Muskel und Organe. Hypoallergen, naturbelassen, ohne Zusätze.",
+    preis: 6.50,
+    gewicht: "500g · TK",
+  },
+  {
+    slug: "barf-wildschwein",
+    name: "BARF-Paket Wildschwein",
+    kategorie: "hund",
+    kurz: "Rohes Wildschweinfleisch, portioniert und tiefgekühlt. Kräftiger im Geschmack, reich an Protein.",
+    preis: 5.50,
+    gewicht: "500g · TK",
+  },
+  {
+    slug: "wild-leber-getrocknet",
+    name: "Wild-Leber getrocknet",
+    kategorie: "hund",
+    kurz: "Getrocknete Rehleber als Leckerli — proteinreich, natürlich, ohne Konservierung. Hunde lieben sie.",
+    preis: 7.90,
+    gewicht: "100g",
+  },
+  {
+    slug: "wild-lunge-getrocknet",
+    name: "Wild-Lunge getrocknet",
+    kategorie: "hund",
+    kurz: "Luftgetrocknete Wildlunge — knusprig, fettarm, der perfekte Snack für zwischendurch.",
+    preis: 6.90,
+    gewicht: "100g",
+  },
+  {
+    slug: "wild-herz-getrocknet",
+    name: "Wild-Herz getrocknet",
+    kategorie: "hund",
+    kurz: "Getrocknetes Wildherz — proteinreich, mager, langanhaltend. Ideal als Kausnack oder Belohnung.",
+    preis: 8.50,
+    gewicht: "100g",
+  },
+  {
+    slug: "wildknochen",
+    name: "Wildknochen",
+    kategorie: "hund",
+    kurz: "Rohe Knochen vom Reh oder Hirsch zum Kauen — tiergerecht, natürliche Zahnpflege.",
+    preis: 3.50,
+    gewicht: "Einzelknochen",
+  },
+  {
+    slug: "wild-trainings-leckerli",
+    name: "Wild-Trainings-Leckerli",
+    kategorie: "hund",
+    kurz: "Kleine Bissen getrocknetes Wild für das Training — weich, aromatisch, in handlicher Größe.",
+    preis: 9.90,
+    gewicht: "200g",
+  },
+  {
+    slug: "wild-pansen",
+    name: "Wild-Pansen",
+    kategorie: "hund",
+    kurz: "Vorgereinigter Wildpansen, roh — reich an natürlichen Enzymen und Mikroorganismen. Für die Verdauung.",
+    preis: 4.50,
+    gewicht: "500g · TK",
+  },
+  {
+    slug: "wild-mix-barf-box",
+    name: "Wild-Mix BARF-Box",
+    kategorie: "hund",
+    kurz: "Das Komplettpaket — Fleisch, Organe und Knochen, saisonal gemischt. Für eine artgerechte Rohfütterung.",
+    preis: 55.00,
+    gewicht: "5 kg · TK",
   },
 
   // ── Pesto, Confit & Kompott ──
