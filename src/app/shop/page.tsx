@@ -449,12 +449,12 @@ const PRODUKTE = [
     erzeuger: "Nußlocher Ziegenkäsehof",
   },
   {
-    slug: "rubycube-till",
+    slug: "rubycube",
     name: "Ruby Cube",
-    kategorie: "kaese",
-    kurz: "Würfelförmiger Weichkäse mit Rotschmiere-Rinde — cremig, kräftig, einzigartig. Handgemacht von Till.",
-    preis: 8.90,
-    gewicht: "ca. 200g",
+    kategorie: "essig",
+    kurz: "Ein Essig wie kein anderer — rubinrot, fruchtig-würzig, mit Tiefe und Charakter. Handgemacht von Till.",
+    preis: 14.90,
+    gewicht: "250ml",
     erzeuger: "Till",
   },
 
