@@ -110,6 +110,11 @@ export default async function OrdersPage() {
                     <p className="text-sm font-bold text-forest-700">
                       {(o.amount_cents / 100).toFixed(2)} €
                     </p>
+                    {o.platform_fee_cents > 0 && (
+                      <p className="text-xs text-stone-400">
+                        davon {((o.amount_cents - o.platform_fee_cents) / 100).toFixed(2)} € an dich
+                      </p>
+                    )}
                     {o.status === "paid" && (
                       <MarkShippedButton orderId={o.id} />
                     )}
