@@ -103,7 +103,7 @@ export const PRODUKTE: Product[] = [
     kurz: "Handwerklich veredeltes Wildbret — langsam gegart, fein gezupft, aromatisch abgeschmeckt.",
     preis: 8.90,
     gewicht: "180g",
-    bild: "/images/hirsch.jpg",
+    bild: "/images/produkte/wildrillette.png",
   },
   {
     slug: "wildjus",
@@ -297,6 +297,7 @@ export const PRODUKTE: Product[] = [
     kurz: "Goldenes Quittengelee — rein, fruchtig, aus regionalen Quitten. Perfekt auf Brot oder zu Käse.",
     preis: 6.50,
     gewicht: "200g",
+    bild: "/images/produkte/quittengelee.png",
   },
   {
     slug: "quittenlikoer",
@@ -348,6 +349,7 @@ export const PRODUKTE: Product[] = [
     preis: 14.90,
     gewicht: "250ml",
     erzeuger: "Wasgau Ölmühle",
+    bild: "/images/produkte/walnussoel.png",
   },
   {
     slug: "kuerbiskernoel",
