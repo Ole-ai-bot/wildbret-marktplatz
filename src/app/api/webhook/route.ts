@@ -27,7 +27,12 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    const { listing_id, buyer_id, seller_id } = session.metadata ?? {};
+    const { listing_id, buyer_id, seller_id, typ } = session.metadata ?? {};
+
+    // Shop-Bestellungen (eigene Feinkost) brauchen keine Marktplatz-Verarbeitung
+    if (typ === "shop") {
+      return NextResponse.json({ received: true });
+    }
 
     // Order auf paid setzen
     await supabase

@@ -24,7 +24,7 @@ export default async function InseratDetailPage({
   const [{ data }, { data: ratingsData }, { data: ratingBadge }] = await Promise.all([
     supabase
       .from("listings")
-      .select("*, seller:profiles(id, full_name, region, phone, avatar_url, bio)")
+      .select("*, seller:profiles(id, full_name, region, phone, avatar_url, bio, stripe_account_id)")
       .eq("id", id)
       .single(),
     supabase
@@ -153,9 +153,20 @@ export default async function InseratDetailPage({
 
           {listing.status === "aktiv" && (
             <div className="flex flex-col gap-3">
-              {listing.versand && (
-                <BuyButton listingId={listing.id} />
-              )}
+              {(listing.seller as any)?.stripe_account_id ? (
+                <>
+                  <BuyButton
+                    listingId={listing.id}
+                    versand={listing.versand}
+                    abholung={listing.abholung}
+                  />
+                  <div className="flex items-center gap-3 my-1">
+                    <div className="flex-1 h-px bg-stone-200" />
+                    <span className="text-xs text-stone-400 uppercase tracking-wider">oder</span>
+                    <div className="flex-1 h-px bg-stone-200" />
+                  </div>
+                </>
+              ) : null}
               <InquiryForm listingId={listing.id} />
             </div>
           )}
