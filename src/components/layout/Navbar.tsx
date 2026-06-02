@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Plus, User, Heart, ShoppingBag, MessageCircle, LogOut, LogIn } from "lucide-react";
+import { Menu, X, Plus, User, Heart, ShoppingBag, ShoppingCart, MessageCircle, LogOut, LogIn } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter, usePathname } from "next/navigation";
 import { NotificationBell } from "./NotificationBell";
+import { useCart } from "@/lib/cart-context";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const NAV_LINKS = [
@@ -22,6 +23,7 @@ export function Navbar() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const { totalItems, setIsOpen: setCartOpen } = useCart();
 
   useEffect(() => {
     const supabase = createClient();
@@ -67,6 +69,14 @@ export function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-2">
+          <button onClick={() => setCartOpen(true)} className="relative text-stone-500 hover:text-white p-2 transition" title="Warenkorb">
+            <ShoppingCart size={17} />
+            {totalItems > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-forest-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {totalItems > 9 ? "9+" : totalItems}
+              </span>
+            )}
+          </button>
           {user ? (
             <>
               <Link href="/favoriten" className="text-stone-500 hover:text-white p-2 transition" title="Merkliste">
@@ -105,7 +115,15 @@ export function Navbar() {
         </div>
 
         {/* Mobile */}
-        <div className="lg:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-3">
+          <button onClick={() => setCartOpen(true)} className="relative text-stone-400 hover:text-white transition" title="Warenkorb">
+            <ShoppingCart size={20} />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-forest-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {totalItems > 9 ? "9+" : totalItems}
+              </span>
+            )}
+          </button>
           {user && <NotificationBell userId={user.id} />}
           <button onClick={() => setOpen(!open)} className="text-stone-400 hover:text-white transition">
             {open ? <X size={22} /> : <Menu size={22} />}

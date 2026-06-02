@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { CartProvider } from "@/lib/cart-context";
+import { CartDrawer } from "@/components/shop/CartDrawer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -31,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" className={`${playfair.variable} ${inter.variable}`}>
       <body className="font-sans">
+        <CartProvider>
         <Navbar />
+        <CartDrawer />
         <main className="min-h-screen">{children}</main>
         <footer className="bg-stone-950 text-stone-400 py-12 px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-4 gap-8 text-sm">
@@ -67,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        </CartProvider>
       </body>
     </html>
   );

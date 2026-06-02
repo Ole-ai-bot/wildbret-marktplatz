@@ -2,17 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import webpush from "web-push";
 import { createClient } from "@supabase/supabase-js";
 
-webpush.setVapidDetails(
-  "mailto:" + process.env.VAPID_CONTACT_EMAIL!,
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+// VAPID nur konfigurieren wenn gültige Keys vorhanden sind (verhindert Build-Crash).
+function configureVapid(): boolean {
+  const pub = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const priv = process.env.VAPID_PRIVATE_KEY;
+  const mail = process.env.VAPID_CONTACT_EMAIL;
+  if (!pub || !priv || !mail || pub.length < 80) return false;
+  try {
+    webpush.setVapidDetails("mailto:" + mail, pub, priv);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(req: NextRequest) {
   // Nur intern aufrufbar (Service-Role)
   const authHeader = req.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  if (!configureVapid()) {
+    return NextResponse.json({ error: "Push nicht konfiguriert" }, { status: 503 });
   }
 
   const { user_id, title, body, link } = await req.json();
