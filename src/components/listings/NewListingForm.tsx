@@ -22,6 +22,7 @@ interface FormData {
   region: string;
   abholung: boolean;
   versand: boolean;
+  barzahlung: boolean;
 }
 
 export function NewListingForm() {
@@ -31,7 +32,7 @@ export function NewListingForm() {
   const [form, setForm] = useState<FormData>({
     title: "", description: "", tier_art: "", kategorie: "",
     jagd_methode: "", jagd_methode_detail: "", gewicht_kg: "",
-    preis: "", preis_pro_kg: false, region: "", abholung: true, versand: false,
+    preis: "", preis_pro_kg: false, region: "", abholung: true, versand: false, barzahlung: false,
   });
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -100,6 +101,7 @@ export function NewListingForm() {
         region: form.region,
         abholung: form.abholung,
         versand: form.versand,
+        barzahlung: form.barzahlung,
         images: imageUrls,
         status: "aktiv",
       }).select().single();
@@ -327,6 +329,24 @@ export function NewListingForm() {
             Versand möglich
           </label>
         </div>
+
+        {/* Barzahlung bei Abholung */}
+        {form.abholung && (
+          <label className="flex items-start gap-3 bg-earth-50 rounded-xl p-4 cursor-pointer mt-2 border border-earth-100">
+            <input
+              type="checkbox"
+              checked={form.barzahlung}
+              onChange={(e) => set("barzahlung", e.target.checked)}
+              className="rounded mt-0.5"
+            />
+            <div>
+              <p className="text-sm font-medium text-earth-800">Barzahlung bei Abholung akzeptieren</p>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Käufer können direkt vor Ort bei dir bar bezahlen — ohne Online-Zahlung und ohne Plattformgebühr.
+              </p>
+            </div>
+          </label>
+        )}
       </Section>
 
       {error && (

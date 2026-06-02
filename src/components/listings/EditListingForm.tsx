@@ -29,6 +29,7 @@ export function EditListingForm({ listing }: { listing: Listing }) {
     region: listing.region,
     abholung: listing.abholung,
     versand: listing.versand,
+    barzahlung: listing.barzahlung ?? false,
     status: listing.status,
   });
   const [loading, setLoading] = useState(false);
@@ -140,6 +141,12 @@ export function EditListingForm({ listing }: { listing: Listing }) {
             Preis/kg
           </label>
         </div>
+        {form.abholung && (
+          <label className="flex items-center gap-2 text-sm cursor-pointer bg-earth-50 rounded-xl p-3 border border-earth-100">
+            <input type="checkbox" checked={form.barzahlung} onChange={(e) => set("barzahlung", e.target.checked)} className="rounded" />
+            Barzahlung bei Abholung akzeptieren
+          </label>
+        )}
       </Section>
 
       {error && <p className="text-red-500 text-sm">{error}</p>}

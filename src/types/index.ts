@@ -49,6 +49,7 @@ export interface Listing {
   region: string;
   abholung: boolean;
   versand: boolean;
+  barzahlung: boolean;
   status: ListingStatus;
   images: string[];
   created_at: string;

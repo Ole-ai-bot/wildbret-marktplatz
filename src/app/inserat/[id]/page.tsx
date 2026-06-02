@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { MapPin, Weight, Crosshair, Package, Calendar } from "lucide-react";
+import { MapPin, Weight, Crosshair, Package, Calendar, Banknote } from "lucide-react";
 import { formatPreis, KATEGORIEN, JAGD_METHODEN } from "@/lib/utils";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
@@ -113,6 +113,9 @@ export default async function InseratDetailPage({
               label="Eingestellt"
               value={format(new Date(listing.created_at), "dd. MMM yyyy", { locale: de })}
             />
+            {listing.barzahlung && (
+              <InfoRow icon={<Banknote size={15} />} label="Zahlung" value="Bar bei Abholung möglich" />
+            )}
           </div>
 
           {listing.jagd_methode_detail && (
@@ -153,6 +156,17 @@ export default async function InseratDetailPage({
 
           {listing.status === "aktiv" && (
             <div className="flex flex-col gap-3">
+              {listing.barzahlung && (
+                <div className="flex items-start gap-3 bg-earth-50 border border-earth-100 rounded-xl p-4">
+                  <Banknote size={18} className="text-earth-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-earth-800">Barzahlung bei Abholung möglich</p>
+                    <p className="text-xs text-stone-500 mt-0.5">
+                      Du kannst direkt vor Ort bar bezahlen. Stelle dafür einfach eine Anfrage und vereinbare einen Abholtermin.
+                    </p>
+                  </div>
+                </div>
+              )}
               {(listing.seller as any)?.stripe_account_id ? (
                 <>
                   <BuyButton
