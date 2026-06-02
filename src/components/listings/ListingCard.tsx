@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Weight, Tag } from "lucide-react";
+import { MapPin, Weight, Tag, Banknote } from "lucide-react";
 import type { Listing } from "@/types";
 import { formatPreis, KATEGORIEN } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,11 @@ export function ListingCard({ listing }: { listing: Listing }) {
         >
           {kat?.label}
         </span>
+        {listing.barzahlung && (
+          <span className="absolute top-2 right-2 bg-earth-600 text-white text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1">
+            <Banknote size={11} /> Bar
+          </span>
+        )}
       </div>
 
       <div className="p-4">

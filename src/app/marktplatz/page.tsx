@@ -7,6 +7,7 @@ interface SearchParams {
   tier?: string;
   kategorie?: string;
   region?: string;
+  barzahlung?: string;
 }
 
 export default async function MarktplatzPage({
@@ -26,6 +27,7 @@ export default async function MarktplatzPage({
   if (params.tier) query = query.eq("tier_art", params.tier);
   if (params.kategorie) query = query.eq("kategorie", params.kategorie);
   if (params.region) query = query.ilike("region", `%${params.region}%`);
+  if (params.barzahlung === "1") query = query.eq("barzahlung", true);
 
   const { data: listings } = await query;
 
@@ -63,6 +65,17 @@ export default async function MarktplatzPage({
           placeholder="Region / Ort"
           className="border border-stone-200 rounded-xl px-3 py-2 text-sm bg-white"
         />
+
+        <label className="flex items-center gap-2 text-sm bg-white border border-stone-200 rounded-xl px-3 py-2 cursor-pointer">
+          <input
+            type="checkbox"
+            name="barzahlung"
+            value="1"
+            defaultChecked={params.barzahlung === "1"}
+            className="rounded"
+          />
+          Barzahlung möglich
+        </label>
 
         <button
           type="submit"
