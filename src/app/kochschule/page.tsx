@@ -27,7 +27,7 @@ export default async function KochschulePage() {
       <div className="grid md:grid-cols-2 min-h-[50vh]">
         <div className="relative h-64 md:h-auto bg-stone-950 overflow-hidden">
           <Image
-            src="/images/kueche-action.jpg"
+            src="/images/wildboar-burger.jpg"
             alt="Kochschule Revierküche"
             fill
             className="object-cover opacity-80"
@@ -76,9 +76,9 @@ export default async function KochschulePage() {
             </div>
           </div>
           <div className="relative h-64 overflow-hidden">
-            <Image src="/images/chef.jpg" alt="In der Küche" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+            <Image src="/images/forelle.jpg" alt="Forellengericht" fill className="object-cover hover:scale-105 transition-transform duration-700" />
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-stone-950/80 to-transparent">
-              <p className="text-white text-xs tracking-widest uppercase">In der Küche</p>
+              <p className="text-white text-xs tracking-widest uppercase">Fisch & Wild</p>
             </div>
           </div>
         </div>
