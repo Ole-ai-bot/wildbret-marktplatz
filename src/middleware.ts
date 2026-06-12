@@ -77,12 +77,6 @@ const TEASER_HTML = `<!DOCTYPE html>
   .gal-cap{position:absolute;left:0;right:0;bottom:0;padding:18px 16px;background:linear-gradient(to top,rgba(12,10,9,.85),transparent);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
   @media(max-width:820px){.gal-grid{grid-template-columns:1fr 1fr}}
 
-  /* NETWORK */
-  .net{padding:100px 0;border-top:1px solid var(--line)}
-  .net h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,42px);font-weight:700;margin-top:16px;margin-bottom:32px}
-  .chips{display:flex;flex-wrap:wrap;gap:10px;max-width:56rem}
-  .chip{border:1px solid var(--line);color:var(--muted);font-size:13px;padding:9px 16px}
-
   /* CHAMPAGNE */
   .champ{display:grid;grid-template-columns:1.1fr 1fr;border-top:1px solid var(--line)}
   .champ-text{padding:90px 48px}
@@ -146,7 +140,7 @@ const TEASER_HTML = `<!DOCTYPE html>
       <p>Die Revierküche versteht sich als kuratorischer Feinkost-Knotenpunkt der Region Heidelberg und Odenwald. Jedes Produkt steht für eine klare Haltung: persönlich bekannt, handwerklich erzeugt, keine anonymen Lieferketten.</p>
       <div class="stats">
         <div class="stat"><div class="big serif">100&nbsp;km</div><div class="cap">Einzugsgebiet Wild</div></div>
-        <div class="stat"><div class="big serif">15+</div><div class="cap">Regionale Erzeuger</div></div>
+        <div class="stat"><div class="big serif">Regional</div><div class="cap">Direkt vom Erzeuger</div></div>
         <div class="stat"><div class="big serif">0</div><div class="cap">Anonyme Lieferketten</div></div>
         <div class="stat"><div class="big serif">100%</div><div class="cap">Nose to Tail</div></div>
       </div>
@@ -163,27 +157,6 @@ const TEASER_HTML = `<!DOCTYPE html>
       <div class="gal-item"><img src="/images/hirsch.jpg" alt="Hirsch" loading="lazy"/><div class="gal-cap">Hirsch</div></div>
       <div class="gal-item"><img src="/images/produkte/quittengelee.png" alt="Quittengelee" loading="lazy"/><div class="gal-cap">Quittengelee</div></div>
       <div class="gal-item"><img src="/images/forelle.jpg" alt="Forelle" loading="lazy"/><div class="gal-cap">Forelle</div></div>
-    </div>
-  </section>
-
-  <section class="net">
-    <div class="wrap">
-      <p class="eyebrow">Handverlesen</p>
-      <h2 class="serif">Unsere Erzeuger</h2>
-      <div class="chips">
-        <span class="chip">Nußlocher Ziegenkäsehof</span>
-        <span class="chip">Forellenhof Lenz</span>
-        <span class="chip">Odenwälder Trüffel</span>
-        <span class="chip">Rheinfischer Kuhn</span>
-        <span class="chip">Südseite Bakery</span>
-        <span class="chip">Privatrösterei Bonafede</span>
-        <span class="chip">THEO Essigmanufaktur</span>
-        <span class="chip">Wasgau Ölmühle</span>
-        <span class="chip">Inge &amp; der Honigbär</span>
-        <span class="chip">Obstbau Pfisterer</span>
-        <span class="chip">Butterbrudis</span>
-        <span class="chip">&amp; viele mehr</span>
-      </div>
     </div>
   </section>
 
