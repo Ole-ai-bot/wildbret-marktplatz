@@ -184,17 +184,41 @@ const TEASER_HTML = `<!DOCTYPE html>
 </html>`;
 
 export function middleware(req: NextRequest) {
-  // Live-Betrieb: alles normal durchlassen
+  // Voller Live-Betrieb für alle (späterer echter Go-Live)
   if (process.env.SITE_LIVE === "true") {
     return NextResponse.next();
   }
 
-  const { pathname } = req.nextUrl;
+  const url = req.nextUrl;
+  const { pathname } = url;
+  const token = process.env.PREVIEW_TOKEN;
 
   // Statische Dateien (Bilder, Icons, manifest …) durchlassen — am Punkt erkennbar
   if (pathname.includes(".")) {
     return NextResponse.next();
   }
+
+  // ── Private Vorschau ──────────────────────────────────────
+  // Aufruf mit ?vorschau=TOKEN setzt einen Cookie und schaltet
+  // die volle Website nur für diesen Browser frei.
+  if (token && url.searchParams.get("vorschau") === token) {
+    const clean = url.clone();
+    clean.searchParams.delete("vorschau");
+    const res = NextResponse.redirect(clean);
+    res.cookies.set("rk_vorschau", token, {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 Tage
+    });
+    return res;
+  }
+
+  // Gültiger Vorschau-Cookie → volle Website durchlassen
+  if (token && req.cookies.get("rk_vorschau")?.value === token) {
+    return NextResponse.next();
+  }
+  // ──────────────────────────────────────────────────────────
 
   // API im Teaser-Modus stilllegen
   if (pathname.startsWith("/api")) {
