@@ -8,12 +8,12 @@ import { KATEGORIEN, PRODUKTE } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
 import type { Product } from "@/lib/products";
 
-export function ProductGrid({ products = PRODUKTE }: { products?: Product[] }) {
+export function ProductGrid({ products = PRODUKTE, kategorien = KATEGORIEN }: { products?: Product[]; kategorien?: typeof KATEGORIEN }) {
   return (
     <>
       {/* Kategorien als Anker */}
       <div className="flex flex-wrap gap-2 mb-16">
-        {KATEGORIEN.map((k) => (
+        {kategorien.map((k) => (
           <a key={k.id} href={`#${k.id}`}
             className="border border-stone-200 hover:border-stone-400 text-stone-600 hover:text-stone-900 text-xs tracking-widest uppercase px-4 py-2 transition">
             {k.label}
@@ -26,7 +26,7 @@ export function ProductGrid({ products = PRODUKTE }: { products?: Product[] }) {
       </div>
 
       {/* Produkte nach Kategorie */}
-      {KATEGORIEN.map((kat) => {
+      {kategorien.map((kat) => {
         const items = products.filter((p) => p.kategorie === kat.id);
         if (!items.length) return null;
         const erzeuger = items.find((p) => p.erzeuger)?.erzeuger;

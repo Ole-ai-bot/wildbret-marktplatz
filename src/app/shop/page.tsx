@@ -1,5 +1,5 @@
 import { ProductGrid } from "@/components/shop/ProductGrid";
-import { ladeShopProdukte } from "@/lib/shop-products";
+import { ladeKategorien, ladeShopProdukte } from "@/lib/shop-products";
 
 export const metadata = {
   title: "Onlineshop — Revierküche",
@@ -11,7 +11,7 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function ShopPage() {
-  const produkte = await ladeShopProdukte();
+  const [produkte, kategorien] = await Promise.all([ladeShopProdukte(), ladeKategorien()]);
   return (
     <div>
       {/* Hero */}
@@ -28,7 +28,7 @@ export default async function ShopPage() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-16">
-        <ProductGrid products={produkte} />
+        <ProductGrid products={produkte} kategorien={kategorien} />
       </div>
     </div>
   );

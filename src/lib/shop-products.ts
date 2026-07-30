@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { PRODUKTE, type Product } from "@/lib/products";
+import { KATEGORIEN, PRODUKTE, type Kategorie, type Product } from "@/lib/products";
 
 /**
  * Shop-Sortiment = statische Liste (products.ts) + per Partner-Import geladene
@@ -77,5 +77,27 @@ export async function findeShopProdukt(slug: string): Promise<Product | null> {
     return data ? zuProdukt(data as ShopProductRow) : null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Alle Shop-Kategorien: feste Liste + per Partner-Import angelegte. Die Seite
+ * rendert damit auch Rubriken, die es erst seit einem Import gibt (z. B.
+ * "Wein"). Faellt die Datenbank aus, bleibt die feste Liste.
+ */
+export async function ladeKategorien(): Promise<Kategorie[]> {
+  try {
+    const { data, error } = await anonClient()
+      .from("shop_categories")
+      .select("id,label,sort_order")
+      .order("sort_order")
+      .order("label");
+    if (error || !data) return KATEGORIEN;
+    const eigene = (data as { id: string; label: string }[]).filter(
+      (k) => !KATEGORIEN.some((s) => s.id === k.id),
+    );
+    return [...KATEGORIEN, ...eigene.map((k) => ({ id: k.id, label: k.label }))];
+  } catch {
+    return KATEGORIEN;
   }
 }

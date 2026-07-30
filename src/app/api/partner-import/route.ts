@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { KATEGORIEN } from "@/lib/products";
+import { ladeKategorien } from "@/lib/shop-products";
 
 export const dynamic = "force-dynamic";
 
@@ -45,21 +45,35 @@ function berechtigt(req: NextRequest): boolean {
  * Partner-Kategorie -> Shop-Kategorie. Erst exakte ID, dann Namens-Treffer
  * (z. B. "Pesto, Confit & Kompott" oder nur "Confit"), sonst Wildmanufaktur.
  */
-function shopKategorie(wunsch?: string): string {
-  if (!wunsch) return "wildmanufaktur";
+/**
+ * Wunsch-Kategorie aufloesen: exakte ID, Namens-Treffer, Synonym - und wenn
+ * alles fehlschlaegt, wird die Kategorie ANGELEGT statt den Artikel in ein
+ * Sammelbecken zu stecken (Ole, 30.07.2026: "wie automatisieren wir das").
+ * Nur ohne jeden Wunsch bleibt es beim Standard Wildmanufaktur.
+ */
+async function shopKategorie(db: ReturnType<typeof adminClient>, wunsch?: string): Promise<string> {
+  if (!wunsch || !wunsch.trim()) return "wildmanufaktur";
   const w = wunsch.trim().toLowerCase();
-  const perId = KATEGORIEN.find((k) => k.id === w);
+  const alle = await ladeKategorien();
+  const perId = alle.find((k) => k.id === w);
   if (perId) return perId.id;
-  const perLabel = KATEGORIEN.find(
+  const perLabel = alle.find(
     (k) => k.label.toLowerCase() === w || k.label.toLowerCase().includes(w) || w.includes(k.label.toLowerCase()),
   );
   if (perLabel) return perLabel.id;
-  // Gaengige Kassen-Warengruppen auf Shop-Kategorien abbilden - sonst landete
-  // z. B. "Kuchen" unter Wildmanufaktur statt bei Gebaeck.
   for (const [id, begriffe] of Object.entries(SYNONYME)) {
-    if (begriffe.some((b) => w.includes(b))) return id;
+    if (begriffe.some((b) => w.includes(b)) && alle.some((k) => k.id === id)) return id;
   }
-  return "wildmanufaktur";
+  // Neu anlegen: Slug aus dem Namen, Umlaute aufgeloest.
+  const slug = w
+    .replace(/\u00e4/g, "ae").replace(/\u00f6/g, "oe").replace(/\u00fc/g, "ue").replace(/\u00df/g, "ss")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+  if (!slug) return "wildmanufaktur";
+  const label = wunsch.trim().slice(0, 60);
+  const res = await db.from("shop_categories").upsert({ id: slug, label }, { onConflict: "id", ignoreDuplicates: true });
+  if (res.error) return "wildmanufaktur";
+  return slug;
 }
 
 const SYNONYME: Record<string, string[]> = {
@@ -81,10 +95,11 @@ export async function GET(req: NextRequest) {
   if (!berechtigt(req)) return NextResponse.json({ error: "Unbekannter Schluessel" }, { status: 401 });
   // Kategorien mitliefern: Das Kassensystem zeigt sie beim Laden als Auswahl,
   // damit Artikel gezielt einsortiert werden statt im Sammelbecken zu landen.
+  const kategorien = await ladeKategorien();
   return NextResponse.json({
     ok: true,
     shop: "Revierkueche",
-    kategorien: KATEGORIEN.map((k) => ({ id: k.id, label: k.label })),
+    kategorien: kategorien.map((k) => ({ id: k.id, label: k.label })),
   });
 }
 
@@ -110,7 +125,7 @@ export async function POST(req: NextRequest) {
       external_ref: p.externalRef,
       name: p.name,
       kurz: p.kurz,
-      kategorie: shopKategorie(p.kategorie),
+      kategorie: await shopKategorie(db, p.kategorie),
       preis_cents: p.priceCents,
       gewicht: p.gewicht ?? "",
       bild: p.bild ?? null,
