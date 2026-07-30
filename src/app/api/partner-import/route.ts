@@ -79,7 +79,13 @@ const SYNONYME: Record<string, string[]> = {
 
 export async function GET(req: NextRequest) {
   if (!berechtigt(req)) return NextResponse.json({ error: "Unbekannter Schluessel" }, { status: 401 });
-  return NextResponse.json({ ok: true, shop: "Revierkueche" });
+  // Kategorien mitliefern: Das Kassensystem zeigt sie beim Laden als Auswahl,
+  // damit Artikel gezielt einsortiert werden statt im Sammelbecken zu landen.
+  return NextResponse.json({
+    ok: true,
+    shop: "Revierkueche",
+    kategorien: KATEGORIEN.map((k) => ({ id: k.id, label: k.label })),
+  });
 }
 
 export async function POST(req: NextRequest) {
