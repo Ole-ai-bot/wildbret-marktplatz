@@ -191,7 +191,9 @@ export function middleware(req: NextRequest) {
 
   const url = req.nextUrl;
   const { pathname } = url;
-  const token = process.env.PREVIEW_TOKEN;
+  // Vorschau-Schlüssel: per Vercel-Env überschreibbar, sonst fester Standardwert.
+  // (Repo ist privat, daher unbedenklich hier hinterlegt.)
+  const token = process.env.PREVIEW_TOKEN || "revier-4ae4e208df4d";
 
   // Statische Dateien (Bilder, Icons, manifest …) durchlassen — am Punkt erkennbar
   if (pathname.includes(".")) {
