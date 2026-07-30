@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { PRODUKTE } from "@/lib/products";
+import { findeShopProdukt } from "@/lib/shop-products";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   let warenwertCents = 0;
 
   for (const { slug, menge } of items) {
-    const product = PRODUKTE.find((p) => p.slug === slug);
+    const product = await findeShopProdukt(String(slug));
     if (!product) continue;
     const qty = Math.max(1, Math.min(99, parseInt(menge) || 1));
     const unitAmount = Math.round(product.preis * 100);

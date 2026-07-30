@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
-import { PRODUKTE, KATEGORIEN } from "@/lib/products";
+import { KATEGORIEN, PRODUKTE } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
 import type { Product } from "@/lib/products";
 
-export function ProductGrid() {
+export function ProductGrid({ products = PRODUKTE }: { products?: Product[] }) {
   return (
     <>
       {/* Kategorien als Anker */}
@@ -27,7 +27,7 @@ export function ProductGrid() {
 
       {/* Produkte nach Kategorie */}
       {KATEGORIEN.map((kat) => {
-        const items = PRODUKTE.filter((p) => p.kategorie === kat.id);
+        const items = products.filter((p) => p.kategorie === kat.id);
         if (!items.length) return null;
         const erzeuger = items.find((p) => p.erzeuger)?.erzeuger;
         return (
@@ -86,8 +86,16 @@ function ProductCard({ product }: { product: Product }) {
     <div className="bg-white group flex flex-col">
       {product.bild && (
         <div className="relative h-48 overflow-hidden">
-          <Image src={product.bild} alt={product.name} fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500" />
+          {product.bild.startsWith("/") ? (
+            <Image src={product.bild} alt={product.name} fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500" />
+          ) : (
+            // Partner-Import: Bild kommt als https- oder Data-URL aus dem
+            // Kassensystem - next/image kann beides hier nicht optimieren.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={product.bild} alt={product.name}
+              className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          )}
           {product.tag && (
             <span className="absolute top-3 left-3 bg-forest-700 text-white text-xs tracking-widest uppercase px-2 py-1">
               {product.tag}

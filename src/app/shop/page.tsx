@@ -1,11 +1,17 @@
 import { ProductGrid } from "@/components/shop/ProductGrid";
+import { ladeShopProdukte } from "@/lib/shop-products";
 
 export const metadata = {
   title: "Onlineshop — Revierküche",
   description: "Handwerklich veredelte Wildprodukte und regionale Feinkost — direkt nach Hause.",
 };
 
-export default function ShopPage() {
+// Partner-Produkte kommen aus der Datenbank - bei jedem Aufruf frisch, damit
+// ein Push aus dem Kassensystem sofort sichtbar ist.
+export const dynamic = "force-dynamic";
+
+export default async function ShopPage() {
+  const produkte = await ladeShopProdukte();
   return (
     <div>
       {/* Hero */}
@@ -22,7 +28,7 @@ export default function ShopPage() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-16">
-        <ProductGrid />
+        <ProductGrid products={produkte} />
       </div>
     </div>
   );
