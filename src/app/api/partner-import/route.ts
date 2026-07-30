@@ -53,8 +53,29 @@ function shopKategorie(wunsch?: string): string {
   const perLabel = KATEGORIEN.find(
     (k) => k.label.toLowerCase() === w || k.label.toLowerCase().includes(w) || w.includes(k.label.toLowerCase()),
   );
-  return perLabel?.id ?? "wildmanufaktur";
+  if (perLabel) return perLabel.id;
+  // Gaengige Kassen-Warengruppen auf Shop-Kategorien abbilden - sonst landete
+  // z. B. "Kuchen" unter Wildmanufaktur statt bei Gebaeck.
+  for (const [id, begriffe] of Object.entries(SYNONYME)) {
+    if (begriffe.some((b) => w.includes(b))) return id;
+  }
+  return "wildmanufaktur";
 }
+
+const SYNONYME: Record<string, string[]> = {
+  gebaeck: ["kuchen", "geb\u00e4ck", "gebaeck", "dessert", "s\u00fcsses", "s\u00fc\u00dfes", "torte", "nachtisch"],
+  "pesto-confit": ["confit", "pesto", "kompott", "aufstrich"],
+  eingemachtes: ["marmelade", "gelee", "eingemacht", "sirup", "chutney"],
+  oele: ["\u00f6l", "oel"],
+  essig: ["essig", "balsamico"],
+  kaese: ["k\u00e4se", "kaese"],
+  butter: ["butter"],
+  kaffee: ["kaffee", "espresso"],
+  gewuerze: ["gew\u00fcrz", "gewuerz", "snack", "salz"],
+  wildwurst: ["wurst", "schinken", "salami", "aufschnitt"],
+  hund: ["hund", "barf"],
+  geschenke: ["geschenk", "gutschein", "box"],
+};
 
 export async function GET(req: NextRequest) {
   if (!berechtigt(req)) return NextResponse.json({ error: "Unbekannter Schluessel" }, { status: 401 });

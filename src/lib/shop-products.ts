@@ -22,7 +22,15 @@ type ShopProductRow = {
 };
 
 function anonClient() {
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    global: {
+      // Next 14 legt fetch-Antworten im Data Cache ab - auch auf Seiten mit
+      // force-dynamic. Ohne no-store fror die Produktliste beim ersten Aufruf
+      // nach dem Deploy ein: ein frisch aus dem Kassensystem geladener Artikel
+      // tauchte nicht auf (Ole, 30.07.2026, "Kuchen to go").
+      fetch: (url, init) => fetch(url, { ...init, cache: "no-store" }),
+    },
+  });
 }
 
 function zuProdukt(r: ShopProductRow): Product {
