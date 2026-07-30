@@ -220,6 +220,13 @@ export function middleware(req: NextRequest) {
   }
   // ──────────────────────────────────────────────────────────
 
+  // Partner-Import auch im Teaser-Modus zulassen: Server-zu-Server-Kanal
+  // (GastroAgent-Kassensystem laedt Produkte), durch den eigenen Schluessel
+  // geschuetzt und ohne oeffentlich sichtbaren Inhalt.
+  if (pathname.startsWith("/api/partner-import")) {
+    return NextResponse.next();
+  }
+
   // API im Teaser-Modus stilllegen
   if (pathname.startsWith("/api")) {
     return new NextResponse(
