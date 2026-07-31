@@ -99,9 +99,13 @@ export async function POST(req: NextRequest) {
  * fehlgeschlagene Meldung darf den Zahlungsablauf nie stoeren.
  */
 async function meldeAnKasse(db: ReturnType<typeof adminClient>, orderId: string): Promise<void> {
-  const ziel = process.env.GASTROAGENT_URL;
+  // Standardziel ist die SaaS selbst - so braucht ein Partner-Shop KEINE
+  // zusaetzliche Umgebungsvariable, damit die Rueckmeldung laeuft. Wer eine
+  // andere Instanz anbindet (Testsystem, eigene Domain), setzt
+  // GASTROAGENT_URL und ueberschreibt den Standard.
+  const ziel = process.env.GASTROAGENT_URL || "https://gastroagent.ai";
   const key = process.env.PARTNER_IMPORT_KEY;
-  if (!ziel || !key) return;
+  if (!key) return;
   try {
     const { data: order } = await db
       .from("shop_orders")
