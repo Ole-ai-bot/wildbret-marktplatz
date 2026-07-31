@@ -27,6 +27,8 @@ const zProdukt = z.object({
   kategorie: z.string().max(80).optional(),
   gewicht: z.string().max(60).optional(),
   bild: z.string().max(4_000_000).optional(),
+  /** USt-Schluessel des Kassensystems fuer den VERSAND (1 = 19 %, 2 = 7 %) */
+  taxKey: z.number().int().min(1).max(7).optional(),
   erzeuger: z.string().max(120).optional(),
   aktiv: z.boolean().optional(),
 });
@@ -130,6 +132,7 @@ export async function POST(req: NextRequest) {
       gewicht: p.gewicht ?? "",
       bild: p.bild ?? null,
       erzeuger: p.erzeuger ?? null,
+      tax_key: p.taxKey ?? null,
       aktiv: p.aktiv ?? true,
       updated_at: new Date().toISOString(),
     };

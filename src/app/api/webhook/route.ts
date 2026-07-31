@@ -29,8 +29,23 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const { listing_id, buyer_id, seller_id, typ } = session.metadata ?? {};
 
-    // Shop-Bestellungen (eigene Feinkost) brauchen keine Marktplatz-Verarbeitung
+    // Shop-Bestellungen (eigene Feinkost) laufen nicht ueber den Marktplatz -
+    // sie bekommen ihren eigenen Datensatz und werden ans Kassensystem
+    // zurueckgemeldet.
     if (typ === "shop") {
+      const { data: order } = await supabase
+        .from("shop_orders")
+        .update({
+          status: "bezahlt",
+          bezahlt_at: new Date().toISOString(),
+          email: session.customer_details?.email ?? null,
+          name: session.shipping_details?.name ?? session.customer_details?.name ?? null,
+          adresse: session.shipping_details?.address ?? null,
+        })
+        .eq("stripe_session_id", session.id)
+        .select("id")
+        .maybeSingle();
+      if (order) await meldeAnKasse(supabase, order.id);
       return NextResponse.json({ received: true });
     }
 
@@ -73,4 +88,56 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ received: true });
+}
+
+
+/**
+ * Bezahlten Shop-Kauf ans Kassensystem melden - damit der Umsatz dort in der
+ * Auswertung erscheint (getrennt vom Kassenjournal, es ist kein
+ * Kassengeschaeft). Scheitert die Meldung, bleibt gemeldet_at leer: Die
+ * Bestellung ist trotzdem sauber gespeichert und laesst sich nachmelden. Eine
+ * fehlgeschlagene Meldung darf den Zahlungsablauf nie stoeren.
+ */
+async function meldeAnKasse(db: ReturnType<typeof adminClient>, orderId: string): Promise<void> {
+  const ziel = process.env.GASTROAGENT_URL;
+  const key = process.env.PARTNER_IMPORT_KEY;
+  if (!ziel || !key) return;
+  try {
+    const { data: order } = await db
+      .from("shop_orders")
+      .select("id, stripe_session_id, brutto_cents, versand_cents, bezahlt_at")
+      .eq("id", orderId)
+      .maybeSingle();
+    if (!order) return;
+    const { data: items } = await db
+      .from("shop_order_items")
+      .select("name, menge, brutto_cents, ust_prozent, netto_cents, ust_cents")
+      .eq("order_id", orderId);
+    if (!items?.length) return;
+
+    const res = await fetch(`${ziel.replace(/\/+$/, "")}/api/online-sales`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-partner-key": key },
+      body: JSON.stringify({
+        externalOrderId: order.stripe_session_id,
+        paidAt: order.bezahlt_at ?? new Date().toISOString(),
+        bruttoCents: order.brutto_cents,
+        versandCents: order.versand_cents ?? 0,
+        positionen: items.map((i) => ({
+          name: i.name,
+          menge: i.menge,
+          bruttoCents: i.brutto_cents,
+          ustProzent: Number(i.ust_prozent),
+          nettoCents: i.netto_cents,
+          ustCents: i.ust_cents,
+        })),
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (res.ok) {
+      await db.from("shop_orders").update({ gemeldet_at: new Date().toISOString() }).eq("id", orderId);
+    }
+  } catch {
+    // Stillschweigend: nachmeldbar ueber gemeldet_at is null.
+  }
 }

@@ -8,6 +8,12 @@ export interface Product {
   bild?: string;
   erzeuger?: string;
   tag?: string;
+  /**
+   * USt in Prozent. Kommt bei importierten Artikeln aus dem Kassensystem
+   * (Versand-Satz); die statische Liste sind Lebensmittel -> 7 %. Wein und
+   * andere alkoholische Getraenke muessen 19 % tragen.
+   */
+  ustProzent?: number;
 }
 
 export interface Kategorie {

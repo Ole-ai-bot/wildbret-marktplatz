@@ -19,6 +19,7 @@ type ShopProductRow = {
   bild: string | null;
   erzeuger: string | null;
   tag: string | null;
+  tax_key: number | null;
 };
 
 function anonClient() {
@@ -44,7 +45,23 @@ function zuProdukt(r: ShopProductRow): Product {
     ...(r.bild ? { bild: r.bild } : {}),
     ...(r.erzeuger ? { erzeuger: r.erzeuger } : {}),
     ...(r.tag ? { tag: r.tag } : {}),
+    ustProzent: ustProzentAus(r.tax_key),
   };
+}
+
+/**
+ * USt-Schluessel des Kassensystems -> Prozentsatz. Ohne Angabe 7 %: Der Shop
+ * verkauft Lebensmittel, das ist der Regelfall. Wer 19 % braucht (Wein,
+ * Spirituosen), setzt im Kassensystem den Versand-Satz - dann kommt er hier
+ * an, statt geraten zu werden.
+ */
+export function ustProzentAus(taxKey: number | null | undefined): number {
+  if (taxKey === 1) return 19;
+  if (taxKey === 2) return 7;
+  if (taxKey === 3) return 10.7;
+  if (taxKey === 4) return 5.5;
+  if (taxKey === 5 || taxKey === 6 || taxKey === 7) return 0;
+  return 7;
 }
 
 /** Alle verkaeuflichen Produkte: statisch + Partner-Import. Nie werfend — faellt auf die statische Liste zurueck. */
@@ -52,7 +69,7 @@ export async function ladeShopProdukte(): Promise<Product[]> {
   try {
     const { data, error } = await anonClient()
       .from("shop_products")
-      .select("external_ref,name,kurz,kategorie,preis_cents,gewicht,bild,erzeuger,tag")
+      .select("external_ref,name,kurz,kategorie,preis_cents,gewicht,bild,erzeuger,tag,tax_key")
       .eq("aktiv", true)
       .order("name");
     if (error || !data) return PRODUKTE;
@@ -70,7 +87,7 @@ export async function findeShopProdukt(slug: string): Promise<Product | null> {
   try {
     const { data } = await anonClient()
       .from("shop_products")
-      .select("external_ref,name,kurz,kategorie,preis_cents,gewicht,bild,erzeuger,tag")
+      .select("external_ref,name,kurz,kategorie,preis_cents,gewicht,bild,erzeuger,tag,tax_key")
       .eq("external_ref", slug.slice(PARTNER_SLUG_PREFIX.length))
       .eq("aktiv", true)
       .maybeSingle();
